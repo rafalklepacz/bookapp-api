@@ -105,3 +105,9 @@ python manage.py createsuperuser --username admin --email admin@book.app
 ```bash
 python manage.py runserver
 ```
+
+### Uruchomienie testów
+
+```bash
+python manage.py test
+```

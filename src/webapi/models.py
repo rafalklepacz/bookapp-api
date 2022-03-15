@@ -9,7 +9,7 @@ class Author(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "{} {}".format(self.firstname, self.lastname)
+        return f"{self.firstname} {self.lastname}"
 
     class Meta:
         verbose_name = 'Autor'
@@ -23,7 +23,7 @@ class Publisher(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "{}".format(self.name)
+        return f"{self.name}"
 
     class Meta:
         verbose_name = 'Wydawnictwo'
@@ -42,7 +42,7 @@ class Book(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "{}".format(self.title)
+        return f"{self.title}"
 
     class Meta:
         verbose_name = 'Książka'
