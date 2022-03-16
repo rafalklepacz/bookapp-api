@@ -6,7 +6,6 @@ class Author(models.Model):
     firstname = models.CharField(max_length=256, blank=False, null=False)
     lastname = models.CharField(max_length=512, blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.firstname} {self.lastname}"
@@ -18,9 +17,8 @@ class Author(models.Model):
 
 
 class Publisher(models.Model):
-    name = models.CharField(max_length=512, blank=False, null=False)
+    name = models.CharField(max_length=512, blank=False, null=False, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.name}"
