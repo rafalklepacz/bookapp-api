@@ -24,7 +24,7 @@ class PublisherView(ViewSet):
 
         if name_param is not None:
             publishers = Publisher.objects.filter(
-                name__icontains=name_param).values_list()
+                name__icontains=name_param)
         else:
             publishers = Publisher.objects.all()
 
