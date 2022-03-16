@@ -19,12 +19,12 @@ class PublisherView(ViewSet):
             raise Http404
 
     def list(self, request):
-        name_param = self.request.query_params.get("name")
+        name_param = request.query_params.get('name')
         publishers = []
 
         if name_param is not None:
             publishers = Publisher.objects.filter(
-                Q(name_param=None) | Q(name__icontains=name_param)).values_list()
+                name__icontains=name_param).values_list()
         else:
             publishers = Publisher.objects.all()
 
