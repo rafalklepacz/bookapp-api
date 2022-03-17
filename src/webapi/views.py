@@ -14,6 +14,9 @@ class PublisherView(ViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = {"name": ["icontains"]}
 
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
 
 class AuthorView(ModelViewSet):
     serializer_class = AuthorSerializer
@@ -23,6 +26,9 @@ class AuthorView(ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = {"firstname": ["icontains"],
                         "lastname": ["icontains"]}
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
 
 
 class BookView(ModelViewSet):
