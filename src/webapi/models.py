@@ -38,7 +38,7 @@ class Book(models.Model):
     publication_number = models.PositiveIntegerField(blank=True, null=True)
     comment = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, editable=False)
 
     def __str__(self):
         return f"{self.title}"
