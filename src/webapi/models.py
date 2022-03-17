@@ -11,6 +11,7 @@ class Author(models.Model):
         return f"{self.firstname} {self.lastname}"
 
     class Meta:
+        unique_together = ('firstname', 'lastname')
         verbose_name = 'Autor'
         verbose_name_plural = 'Autorzy'
         db_table = "bookapp_authors"
@@ -31,7 +32,7 @@ class Publisher(models.Model):
 
 class Book(models.Model):
     publisher = models.ForeignKey(Publisher, on_delete=models.PROTECT)
-    authors = models.ManyToManyField(Author)
+    authors = models.ManyToManyField(Author, related_name="book_list")
     title = models.CharField(max_length=512, blank=False, null=False)
     publication_year = models.PositiveIntegerField(blank=True, null=True)
     publication_number = models.PositiveIntegerField(blank=True, null=True)
