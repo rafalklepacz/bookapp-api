@@ -1,12 +1,13 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import permissions
 from rest_framework.viewsets import ViewSet, ModelViewSet
+
 from .models import Publisher, Author, Book
 from .serializers import PublisherSerializer, AuthorSerializer, BookSerializer
 from .authentication import TokenAuthentication
 
 
-class PublisherView(ViewSet):
+class PublisherView(ModelViewSet):
     serializer_class = PublisherSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
