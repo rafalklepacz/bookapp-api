@@ -1,8 +1,7 @@
-from typing import Any, Dict, List
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 from django.db.models import Q
-from rest_framework import authentication, permissions, status
+from rest_framework import permissions, status
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from .models import Publisher, Author, Book
@@ -13,9 +12,10 @@ from .authentication import TokenAuthentication
 class PublisherView(ViewSet):
     authentication_classes = [TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
+
     def retrieve(self, request, pk=None):
         try:
-            publisher = Publisher.objects.get(pk=pk)
+            publisher = self.get_object(pk=pk)
             serializer = PublisherSerializer(publisher, many=False)
             return Response(serializer.data)
         except Publisher.DoesNotExist:
@@ -25,11 +25,11 @@ class PublisherView(ViewSet):
         name_param = request.query_params.get('name')
         publishers = []
 
-        if name_param is not None:
+        if name_param is None:
+            publishers = Publisher.objects.all()
+        else:
             publishers = Publisher.objects.filter(
                 name__icontains=name_param)
-        else:
-            publishers = Publisher.objects.all()
 
         serializer = PublisherSerializer(publishers, many=True)
         return Response(serializer.data)
@@ -42,12 +42,7 @@ class PublisherView(ViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def update(self, request, pk=None):
-        publisher = None
-        try:
-            publisher = Publisher.objects.get(pk=pk)
-        except Publisher.DoesNotExist:
-            raise Http404
-        
+        publisher = self.get_object(pk=pk)
         serializer = PublisherSerializer(publisher, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -55,7 +50,12 @@ class PublisherView(ViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def destroy(self, request, pk=None):
+        publisher = self.get_object(pk=pk)
+        publisher.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+    def get_object(self, pk):
         try:
-            Publisher.objects.delete(pk=pk)
+            return Publisher.objects.get(pk=pk)
         except Publisher.DoesNotExist:
             raise Http404
