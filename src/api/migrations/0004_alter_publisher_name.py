@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('webapi', '0003_remove_author_created_by_remove_publisher_created_by'),
+        ('api', '0003_remove_author_created_by_remove_publisher_created_by'),
     ]
 
     operations = [

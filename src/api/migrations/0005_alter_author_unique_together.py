@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('webapi', '0004_alter_publisher_name'),
+        ('api', '0004_alter_publisher_name'),
     ]
 
     operations = [

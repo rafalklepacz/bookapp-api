@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
                 ('comment', models.TextField(blank=True, null=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('created_by', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('publisher', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='webapi.publisher')),
+                ('publisher', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='api.publisher')),
             ],
             options={
                 'verbose_name': 'Książka',

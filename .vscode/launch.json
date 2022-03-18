@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Bookapp: Django",
+            "name": "bookapp-api: django",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/src/manage.py",

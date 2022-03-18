@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('webapi', '0007_alter_book_created_by'),
+        ('api', '0007_alter_book_created_by'),
     ]
 
     operations = [

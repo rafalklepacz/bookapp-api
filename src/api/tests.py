@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from webapi.models import Author, Publisher, Book
+from api.models import Author, Publisher, Book
 
 
 class PublisherTestCase(TestCase):

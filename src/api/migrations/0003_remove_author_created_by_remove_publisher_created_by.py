@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('webapi', '0002_book_authors'),
+        ('api', '0002_book_authors'),
     ]
 
     operations = [

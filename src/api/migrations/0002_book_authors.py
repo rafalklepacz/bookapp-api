@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('webapi', '0001_initial'),
+        ('api', '0001_initial'),
     ]
 
     operations = [
         migrations.AddField(
             model_name='book',
             name='authors',
-            field=models.ManyToManyField(to='webapi.author'),
+            field=models.ManyToManyField(to='api.author'),
         ),
     ]
