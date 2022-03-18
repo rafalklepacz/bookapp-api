@@ -1,6 +1,9 @@
+from django.db.models import ProtectedError
+from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import permissions
-from rest_framework.viewsets import ViewSet, ModelViewSet
+from django.shortcuts import get_object_or_404
+from rest_framework import permissions, status
+from rest_framework.viewsets import ModelViewSet
 
 from .models import Publisher, Author, Book
 from .serializers import PublisherSerializer, AuthorSerializer, BookSerializer
@@ -17,6 +20,15 @@ class PublisherView(ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
+
+    def destroy(self, request, pk=None):
+        publisher = get_object_or_404(Publisher, id=pk)
+        try:
+            publisher.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except ProtectedError:
+            errorMsg = f"Cannot delete the publisher '{publisher.name}' because is referenced to some book."
+            return Response(data={'message': errorMsg}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class AuthorView(ModelViewSet):
