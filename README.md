@@ -19,6 +19,8 @@ Na podstawową funkcjonalność składają się konteksty:
     - autorów po imieniu i nazwisku,
     - wydawnictw po nazwie
 
+> :warning: **Każdy użytkownik ma dostęp tylko swoich książek, czyli dodanych przez samego siebie. Natomiast w przypadku autorów i wydawnictw - każdy użytkownik ma dostęp do wszystkich pozycji.**
+
 Książka zawiera:
 
 - autor (jeden lub kilku) [wymagane],

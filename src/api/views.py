@@ -1,7 +1,7 @@
 from django.db.models import ProtectedError
-from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import get_object_or_404
+from rest_framework.response import Response
 from rest_framework import permissions, status
 from rest_framework.viewsets import ModelViewSet
 
@@ -48,7 +48,6 @@ class BookView(ModelViewSet):
     serializer_class = BookSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
-    queryset = Book.objects.all()
     filter_backends = [DjangoFilterBackend]
     filterset_fields = {"publisher__name": ["icontains"],
                         "authors__firstname": ["icontains"],
@@ -56,6 +55,9 @@ class BookView(ModelViewSet):
                         "title": ["icontains"],
                         "publication_year": ["exact"],
                         "publication_number": ["exact"]}
+    
+    def get_queryset(self):
+        return Book.objects.filter(created_by=self.request.user)
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
