@@ -45,7 +45,10 @@ INSTALLED_APPS = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'api.authentication.TokenAuthentication',
+    )
 }
 
 MIDDLEWARE = [
@@ -110,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 SWAGGER_SETTINGS = {
     'USE_SESSION_AUTH': False,
-    'REFETCH_SCHEMA_WITH_AUTH': True,
+    'DEEP_LINKING': True,
     'SECURITY_DEFINITIONS': {
         'Bearer': {
             'type': 'apiKey',
