@@ -4,13 +4,14 @@ on:
   push:
     branches: [main]
 
+defaults:
+  run:
+    working-directory: src
+
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: src
     steps:
       - uses: actions/checkout@v2
       - name: Setup Python
@@ -25,9 +26,6 @@ jobs:
   deploy:
     name: Deploy to Heroku
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: src
     needs: build
     steps:
       - uses: actions/checkout@v2
