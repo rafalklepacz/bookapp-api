@@ -78,7 +78,7 @@ virtualenv .\.venv --python=python3.10
 pip install --upgrade pip
 ```
 
-### Instalacja bibliotek z pliku `requirements.txt`
+### Instalacja bibliotek z pliku `requirements.txt` 
 
 ```bash
 pip install -r ./requirements.txt
