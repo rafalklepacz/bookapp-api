@@ -1,6 +1,10 @@
-from django.urls import path
-from rest_framework.authtoken.views import obtain_auth_token
+from django.urls import path, re_path
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
 from .views import UserView, PublisherView, AuthorView, BookView
+
 
 publishers_list = PublisherView.as_view({
     'get': 'list',
@@ -40,13 +44,13 @@ users_list = UserView.as_view({
     'post': 'create'
 })
 
+
 urlpatterns = [
-    path('auth/', obtain_auth_token),
     path('publishers/', publishers_list),
     path('publishers/<int:pk>', publishers_detail),
     path('authors/', authors_list),
     path('authors/<int:pk>', authors_detail),
     path('books/', books_list),
     path('books/<int:pk>', books_detail),
-    path('users/', users_list),
+    path('users/', users_list)
 ]
