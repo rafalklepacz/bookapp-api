@@ -1,1 +1,1 @@
-web: gunicorn yourapp.wsgi:application
+web: gunicorn bookapp.wsgi:application
