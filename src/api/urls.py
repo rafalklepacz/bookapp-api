@@ -1,6 +1,6 @@
 from django.urls import path
 from rest_framework.authtoken.views import obtain_auth_token
-from .views import PublisherView, AuthorView, BookView
+from .views import UserView, PublisherView, AuthorView, BookView
 
 publishers_list = PublisherView.as_view({
     'get': 'list',
@@ -35,6 +35,11 @@ books_detail = BookView.as_view({
     'delete': 'destroy'
 })
 
+users_list = UserView.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+
 urlpatterns = [
     path('auth/', obtain_auth_token),
     path('publishers/', publishers_list),
@@ -42,5 +47,6 @@ urlpatterns = [
     path('authors/', authors_list),
     path('authors/<int:pk>', authors_detail),
     path('books/', books_list),
-    path('books/<int:pk>', books_detail)
+    path('books/<int:pk>', books_detail),
+    path('users/', users_list),
 ]
