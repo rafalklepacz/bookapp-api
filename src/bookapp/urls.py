@@ -26,7 +26,7 @@ schema_view = get_schema_view(
     openapi.Info(
         title="BookApp API",
         default_version='v1',
-        description="Aby się zalogować do **SwaggerUI**, należy wywołać metodę `auth/` z odpowiednimi wartościami `username` i `password`, a następnie kliknąć przycisk `Authorize` i wygenerowany token wkleić w pole tekstowe z prefiksem 'Bearer ', czyli `Bearer {token}`."
+        description="Aby się zalogować do **SwaggerUI**, należy wcześniej utworzyć własnego użytkownika przy pomocy metody `POST api/users/` podając `username` i `password`, a następnie dla podanych danych trzeba wywołać metodę `auth/` która zwróci `token` autoryzacyjny. Po tym trzeba kliknąć przycisk `Authorize` i wygenerowany token wstawić w pole tekstowe poprzedzając go prefiksem 'Bearer', czyli docelowo: `Bearer {token}`."
     ),
     public=True,
     permission_classes=[permissions.AllowAny]
