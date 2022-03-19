@@ -1,1 +1,0 @@
-web: gunicorn bookapp.wsgi:application
