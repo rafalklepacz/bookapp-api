@@ -59,6 +59,7 @@ Stack technologiczny:
 #### Linux
 
 ```bash
+cd ./src
 virtualenv ./.venv --python=python3.10
 source ./.venv/bin/activate
 ```
@@ -66,6 +67,7 @@ source ./.venv/bin/activate
 #### Windows
 
 ```powershell
+cd .\src
 virtualenv .\.venv --python=python3.10
 .\.venv\Scripts\activate.bat
 ```
