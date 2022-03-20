@@ -56,9 +56,9 @@ class BookView(ModelViewSet):
                         "title": ["icontains"],
                         "publication_year": ["exact"],
                         "publication_number": ["exact"]}
-    
+
     def get_queryset(self):
-        return Book.objects.filter(created_by=self.request.user)
+        return Book.objects.filter(created_by=self.request.user.id)
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
@@ -70,20 +70,20 @@ class UserView(ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     queryset = User.objects.all()
     permission_classes_by_action = {'create': [permissions.AllowAny]}
-    
+
     def get_permissions(self):
         try:
             return [permission() for permission in self.permission_classes_by_action[self.action]]
         except KeyError:
             return [permission() for permission in self.permission_classes]
-    
+        
     def get_object(self):
         return self.request.user
-    
+
     def get(self, request):
         serializer = UserSerializer(self.request.user)
         return Response(serializer.data)
-    
+
     def list(self, request):
         serializer = UserSerializer(self.request.user)
         return Response(serializer.data)
