@@ -13,7 +13,7 @@ class Book(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, editable=False, help_text='Użytkownik, który utworzył pozycję')
 
     def __str__(self):
-        return f"{self.title ({self.author})}"
+        return f"{self.title} ({self.author})"
 
     class Meta:
         verbose_name = 'Książka'
