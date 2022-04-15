@@ -1,0 +1,454 @@
+{
+	"info": {
+		"_postman_id": "f8f2c001-52ac-44ab-b828-df8b6021ae3f",
+		"name": "BookApp-SingleModel",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "books",
+			"item": [
+				{
+					"name": "list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/books/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"books",
+								""
+							],
+							"query": [
+								{
+									"key": "title__icontains",
+									"value": "qwe",
+									"description": "Tytuł zawiera ciąg znaków",
+									"disabled": true
+								},
+								{
+									"key": "author_name__icontains",
+									"value": "j",
+									"description": "Autor zawiera ciąg znaków",
+									"disabled": true
+								},
+								{
+									"key": "publisher_name__icontains",
+									"value": null,
+									"description": "Nazwa wydawnictwa zawiera ciąg znaków",
+									"disabled": true
+								},
+								{
+									"key": "publication_year__gte",
+									"value": null,
+									"description": "Rok publikacji książki jest większy od lub równy",
+									"disabled": true
+								},
+								{
+									"key": "publication_year__lte",
+									"value": null,
+									"description": "Rok publikacji książki jest mniejszy od lub równy",
+									"disabled": true
+								},
+								{
+									"key": "publication_year",
+									"value": null,
+									"description": "Rok publikacji książki jest równy",
+									"disabled": true
+								},
+								{
+									"key": "publication_number__gte",
+									"value": null,
+									"description": "Nr wydania książki jest większy od lub równy",
+									"disabled": true
+								},
+								{
+									"key": "publication_number__lte",
+									"value": null,
+									"description": "Nr wydania książki jest mniejszy od lub równy",
+									"disabled": true
+								},
+								{
+									"key": "publication_number",
+									"value": null,
+									"description": "Nr wydania książki jest równy",
+									"disabled": true
+								},
+								{
+									"key": "status__in",
+									"value": "1,2",
+									"description": "Status książki zawiera się w przekazanej w liście (wartości oddzielone przecinkami: np.: /?status__in=1,2),",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": null,
+									"description": "Status książki jest równy",
+									"disabled": true
+								},
+								{
+									"key": "rate__gte",
+									"value": null,
+									"description": "Ocena książki jest większa od lub równa",
+									"disabled": true
+								},
+								{
+									"key": "rate__lte",
+									"value": null,
+									"description": "Ocena książki jest mniejsza od lub równa",
+									"disabled": true
+								},
+								{
+									"key": "rate",
+									"value": null,
+									"description": "Ocena książki jest równa",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "cover",
+									"description": "Plik z okładką książki",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "publisher_name",
+									"value": "publisher_name",
+									"description": "Nazwa wydawcy",
+									"type": "text"
+								},
+								{
+									"key": "author_name",
+									"value": "author_name",
+									"description": "Nazwa autora/ów",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "title",
+									"description": "Tytuł książki",
+									"type": "text"
+								},
+								{
+									"key": "publication_year",
+									"value": "2010",
+									"description": "Rok wydania",
+									"type": "text"
+								},
+								{
+									"key": "publication_number",
+									"value": "2",
+									"description": "Nr wydania",
+									"type": "text"
+								},
+								{
+									"key": "comment",
+									"value": "comment comment comment",
+									"description": "Komentarz użytkownika",
+									"type": "text"
+								},
+								{
+									"key": "rate",
+									"value": "4",
+									"description": "Ocena użytkownika (0-5)",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "0",
+									"description": "Status (0-do przeczytania, 1-w trakcie, 2-przeczytana)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/books/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"books",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "publisher_name",
+									"value": "publisher_name_updated",
+									"type": "text"
+								},
+								{
+									"key": "author_name",
+									"value": "author_name_updated",
+									"type": "text"
+								},
+								{
+									"key": "author_name",
+									"value": "author_name_updated",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "title",
+									"type": "text"
+								},
+								{
+									"key": "publication_year",
+									"value": "2010",
+									"type": "text"
+								},
+								{
+									"key": "publication_number",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "comment",
+									"value": "comment comment comment",
+									"type": "text"
+								},
+								{
+									"key": "rate",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/books/21",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"books",
+								"21"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/books/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"books",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"test_4\",\n    \"password\": \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/users/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/users/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{jwttoken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"var url = pm.collectionVariables.get(\"url\");",
+					"var username = pm.collectionVariables.get(\"username\");",
+					"var password = pm.collectionVariables.get(\"password\");",
+					"",
+					"var sdk = require('postman-collection');",
+					"",
+					"var tokenRequest = new sdk.Request({",
+					"    url: `${url}/auth/`,",
+					"    method: 'POST',",
+					"    header: [",
+					"        new sdk.Header({",
+					"            key: 'content-type',",
+					"            value: 'application/json'",
+					"        }),",
+					"        new sdk.Header({",
+					"            key: 'acccept',",
+					"            value: 'application/json'",
+					"        }),",
+					"    ],",
+					"    body: {",
+					"        mode: 'raw',",
+					"        raw: JSON.stringify({",
+					"            username: username,",
+					"            password: password",
+					"        })",
+					"    }",
+					"});",
+					"",
+					"pm.sendRequest(tokenRequest, function (err, response) {",
+					"    if (err) {",
+					"        throw err;",
+					"    }",
+					"    ",
+					"    if (response.code !== 200) {",
+					"        throw new Error('Could not log in.');",
+					"    }",
+					"    ",
+					"    pm.collectionVariables.set(\"jwttoken\", response.json().token);",
+					"    console.log(`New token has been set: ${response.json().token}`);",
+					"});",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://evening-tundra-43669.herokuapp.com"
+		},
+		{
+			"key": "username",
+			"value": "string",
+			"type": "string"
+		},
+		{
+			"key": "password",
+			"value": "string",
+			"type": "string"
+		},
+		{
+			"key": "jwttoken",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
