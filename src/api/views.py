@@ -6,7 +6,7 @@ from rest_framework import permissions, status
 from rest_framework.viewsets import ModelViewSet
 
 from .models import Book
-from .serializers import UserSerializer, BookSerializer, ChangePasswordSerializer
+from .serializers import ProfileSerializer, UserSerializer, BookSerializer, ChangePasswordSerializer
 from .authentication import TokenAuthentication
 
 
@@ -86,6 +86,9 @@ class UserView(ModelViewSet):
     def get_serializer_class(self):
         if self.action == 'update':
             return ChangePasswordSerializer
+        
+        if self.action == 'partial_update':
+            return ProfileSerializer
 
         return UserSerializer
 
@@ -111,6 +114,17 @@ class UserView(ModelViewSet):
                 return Response({"old_password": ["Stare hasło jest nieprawidłowe."]}, status=status.HTTP_400_BAD_REQUEST)
             self.object.set_password(serializer.data.get("new_password"))
             self.object.save()
+            return Response(status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def partial_update(self, request):
+        user = User.objects.get(pk=request.user.id)
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            user.profile.plan_to_read = serializer.data.get("plan_to_read")
+            user.save()
             return Response(status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

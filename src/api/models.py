@@ -1,7 +1,11 @@
 from distutils.command.upload import upload
+from pyexpat import model
 from django.db import models
+from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.dispatch import receiver
+
 
 def upload_to(instance, filename):
     return 'covers/{filename}'.format(filename=filename)
@@ -31,3 +35,23 @@ class Book(models.Model):
         verbose_name = 'Książka'
         verbose_name_plural = 'Książki'
         db_table = "bookapp_books"
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    plan_to_read = models.TextField(blank=True, null=True, help_text='Planuję przeczytać')
+    
+    class Meta:
+        verbose_name = 'Profil użytkownika'
+        verbose_name_plural = 'Profile użytkowników'
+        db_table = "auth_user_profile"
+    
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()

@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Book
+from .models import Book, Profile
 
 
 class BookSerializer(serializers.ModelSerializer):
@@ -29,3 +29,9 @@ class ChangePasswordSerializer(serializers.Serializer):
 
     old_password = serializers.CharField(required=True)
     new_password = serializers.CharField(required=True)
+
+
+class ProfileSerializer(serializers.Serializer):
+    model = Profile
+
+    plan_to_read = serializers.CharField(required=False)
