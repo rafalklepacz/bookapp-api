@@ -16,9 +16,9 @@ books_detail = BookView.as_view({
 
 users_list = UserView.as_view({
     'get': 'list',
-    'post': 'create'
+    'post': 'create',
+    'put': 'update'
 })
-
 
 urlpatterns = [
     path('books/', books_list),

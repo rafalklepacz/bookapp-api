@@ -1,11 +1,12 @@
+from functools import partial
 from django.contrib.auth.models import User
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
-from rest_framework import permissions
+from rest_framework import permissions, status
 from rest_framework.viewsets import ModelViewSet
 
 from .models import Book
-from .serializers import UserSerializer, BookSerializer
+from .serializers import UserSerializer, BookSerializer, ChangePasswordSerializer
 from .authentication import TokenAuthentication
 
 
@@ -13,7 +14,7 @@ class BookView(ModelViewSet):
     """
     list:
     Zwraca listę wszystkich książek dodanych przez aktualnie zalogowanego użytkownika, na podstawie kryteriów filtrowania podanych przez użytkownika.
-    
+
     Parametry filtrowania:<br/>
     `publisher_name__icontains` - nazwa wydawnictwa,<br/>
     `author_name__icontains` - nazwa autora,<br/>
@@ -29,10 +30,10 @@ class BookView(ModelViewSet):
     `rate__gte` - ocena książki większa lub równa od,<br/>
     `rate__lte` - ocena książki mniejsza lub równa od,<br/>
     `rate` - dokładna ocena książki
-    
+
     create:
     Umożliwia dodanie nowej książki
-    
+
     retrieve:
     Zwraca szczegółowe dane książki o danym ID
 
@@ -66,10 +67,13 @@ class UserView(ModelViewSet):
     """
     list:
     Zwraca dane aktualnie zalogowanego użytkownika
-    
+
     create:
     Umożliwia utworzenie nowego użytkownika
     
+    update:
+    Umożliwia zmianę hasła użytkownika
+
     retrieve:
     Zwraca dane aktualnie zalogowanego użytkownika
     """
@@ -78,6 +82,12 @@ class UserView(ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     queryset = User.objects.all()
     permission_classes_by_action = {'create': [permissions.AllowAny]}
+    
+    def get_serializer_class(self):
+        if self.action == 'update':
+            return ChangePasswordSerializer
+
+        return UserSerializer
 
     def get_permissions(self):
         try:
@@ -91,6 +101,19 @@ class UserView(ModelViewSet):
     def get(self, request):
         serializer = UserSerializer(self.request.user)
         return Response(serializer.data)
+    
+    def update(self, request):
+        self.object = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            if not self.object.check_password(serializer.data.get("old_password")):
+                return Response({"old_password": ["Stare hasło jest nieprawidłowe."]}, status=status.HTTP_400_BAD_REQUEST)
+            self.object.set_password(serializer.data.get("new_password"))
+            self.object.save()
+            return Response(status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def list(self, request):
         serializer = UserSerializer(self.request.user)
