@@ -18,8 +18,17 @@ class BookView(ModelViewSet):
     `publisher_name__icontains` - nazwa wydawnictwa,<br/>
     `author_name__icontains` - nazwa autora,<br/>
     `title__icontains` - tytuł książki,,<br/>
-    `publication_year` - rok publikacji książki,,<br/>
-    `publication_number` - nr wydania książki
+    `publication_year__gte` - rok publikacji książki większy lub równy od,<br/>
+    `publication_year__lte` - rok publikacji książki mniejszy lub równy od,<br/>
+    `publication_year` - dokładny rok publikacji książki,<br/>
+    `publication_number__gte` - nr wydania książki większy lub równy od,<br/>
+    `publication_number__lte` - nr wydania książki mniejszy lub równy od,<br/>
+    `publication_number` - dokładny nr wydania książki,<br/>
+    `status__in` - status książki zawiera się w przekazanej liście (wartości oddzielone przecinkami: np.: /?status__in=1,2),<br/>
+    `status` - dokładny status książki,<br/>
+    `rate__gte` - ocena książki większa lub równa od,<br/>
+    `rate__lte` - ocena książki mniejsza lub równa od,<br/>
+    `rate` - dokładna ocena książki
     
     create:
     Umożliwia dodanie nowej książki
@@ -34,14 +43,17 @@ class BookView(ModelViewSet):
     Umożliwia usunięcie książki o danym ID
     """
     serializer_class = BookSerializer
+    #parser_classes = (FormParser, MultiPartParser)
     authentication_classes = [TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = {"publisher_name": ["icontains"],
-                        "author_name": ["icontains"],
-                        "title": ["icontains"],
-                        "publication_year": ["exact"],
-                        "publication_number": ["exact"]}
+    filterset_fields = {'publisher_name': ['icontains'],
+                        'author_name': ['icontains'],
+                        'title': ['icontains'],
+                        'publication_year': ['gte', 'lte', 'exact'],
+                        'publication_number': ['gte', 'lte', 'exact'],
+                        'status': ['in', 'exact'],
+                        'rate': ['gte', 'lte', 'exact']}
 
     def get_queryset(self):
         return Book.objects.filter(created_by=self.request.user.id)
