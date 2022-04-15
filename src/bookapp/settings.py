@@ -184,8 +184,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dwadwfrls',
-    'API_KEY': os.environ['CLOUDINARY_STORAGE_API_KEY'],
-    'API_SECRET': os.environ['CLOUDINARY_STORAGE_API_SECRET']
+    'API_KEY': '388532431134823',
+    'API_SECRET': 'MfCBjpTX221X4DjxTg0vOVssp5g'
 }
 
 # Default primary key field type
