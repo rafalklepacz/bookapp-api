@@ -9,11 +9,16 @@ class BookSerializer(serializers.ModelSerializer):
         fields = ["id", "publisher_name", "author_name", "title", "publication_year",
                   "publication_number", "comment", "rate", "status", "cover"]
 
+class ProfileSerializer(serializers.Serializer):
+    model = Profile
+
+    plan_to_read = serializers.CharField(required=False)
 
 class UserSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer(required=True)
     class Meta:
         model = User
-        fields = ('username', 'password')
+        fields = ('username', 'password', 'profile')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
@@ -29,9 +34,3 @@ class ChangePasswordSerializer(serializers.Serializer):
 
     old_password = serializers.CharField(required=True)
     new_password = serializers.CharField(required=True)
-
-
-class ProfileSerializer(serializers.Serializer):
-    model = Profile
-
-    plan_to_read = serializers.CharField(required=False)
