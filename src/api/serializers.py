@@ -4,6 +4,7 @@ from .models import Book, Profile
 
 
 class BookSerializer(serializers.ModelSerializer):
+    cover = serializers.ImageField(required=False)
     class Meta:
         model = Book
         fields = ["id", "publisher_name", "author_name", "title", "publication_year",
