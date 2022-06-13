@@ -4,19 +4,24 @@ from .models import Book, Profile
 
 
 class BookSerializer(serializers.ModelSerializer):
-    cover = serializers.ImageField(required=False)
+    cover = serializers.ImageField(
+        required=False, max_length=None, allow_empty_file=True)
+
     class Meta:
         model = Book
         fields = ["id", "publisher_name", "author_name", "title", "publication_year",
                   "publication_number", "comment", "rate", "status", "cover"]
+
 
 class ProfileSerializer(serializers.Serializer):
     model = Profile
 
     plan_to_read = serializers.CharField(required=False)
 
+
 class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(required=True)
+
     class Meta:
         model = User
         fields = ('username', 'password', 'profile')
